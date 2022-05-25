@@ -1,0 +1,44 @@
+* {
+   box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.inner {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #DC143C;
+    width: 70%;
+    color: white;
+}
+
+.logo {
+    font-size: 40px;
+    
+}
+
+.sublogo {
+    font-size: 20px;
+    
+}
+
+footer {
+    background-color: #DC143C;
+    width: 70%;
+    color: white;
+    font-size: 20px;
+}
+
+@media only screen and (min-width: 1200px) {  /*가로가 1200px 보다 커지면 더 이상 늘어나지 X*/
+    .inner{
+        width: 1200px;
+    }
+
+}
