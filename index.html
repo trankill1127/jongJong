@@ -20,33 +20,35 @@
     <!--CSS 연결-->
     <link rel="stylesheet" href="css/style.css" />
 
-
+    <script src="js/mapping.js"></script>
 
 </head>
+
 <body>
 
+    <!--header-->
     <header>
-        <div class="inner">
-            <div class="logo">종종</div>
-            
-        </div>
-        
+        <div class="logo">종종</div>
     </header>
-    
 
-
-
+    <!--지도-->
     <div id="map" style="width:100%; height: 750px;"></div>
-
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28fee11b0a4261c36abc053b39d07669"></script>
-    
     <script src="js/map.js"></script>
 
-
+    <!---->
+    <div id="search_wrap">
+        <form class="search_form">
+            <div class="search_text">
+                <input id="start" type="text" size="50" placeholder="도착지를 입력하세요"><br>
+                <input id="end" type="text" size="50" placeholder="출발지를 입력하세요"><br>
+            </div>
+            <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="getCurrentPos()">검색</button>
+        </form>    
+    </div>
+    
     <!--위치추적 기능 https://dawitblog.tistory.com/50-->
     <!-- 부트스트랩 primary 버튼 -->
-    <button type="button" class="btn btn-lg btn-light" id="getMyPositionBtn" onclick="getCurrentPos()">현재 위치</button>
-
     <!-- 부트스트랩 이용을 위한 jQuery와 CDN -->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
