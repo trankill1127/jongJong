@@ -27,7 +27,7 @@
 
 ### ~12. 웹 호스팅~ 
 
-https://trankill1127.github.io/jongJong/main.html
+https://trankill1127.github.io/jongJong/
 
 [깃허브 웹 호스팅 사용법](https://ya-ya.tistory.com/m/14)
 
