@@ -1,34 +1,40 @@
-//Dijkstra algorithm is used to find the shortest distance between two nodes inside a valid weighted graph. Often used in Google Maps, Network Router etc.
+class Node { //helper class for PriorityQueue
 
-//helper class for PriorityQueue
-class Node {
     constructor(val, priority) {
       this.val = val;
       this.priority = priority;
     }
+
   }
   
-  class PriorityQueue {
+class PriorityQueue { //우선순위 큐
+
     constructor() {
       this.values = [];
     }
+
     enqueue(val, priority) {
       let newNode = new Node(val, priority);
       this.values.push(newNode);
       this.bubbleUp();
     }
+
     bubbleUp() {
       let idx = this.values.length - 1;
       const element = this.values[idx];
+
       while (idx > 0) {
         let parentIdx = Math.floor((idx - 1) / 2);
         let parent = this.values[parentIdx];
+
         if (element.priority >= parent.priority) break;
+
         this.values[parentIdx] = element;
         this.values[idx] = parent;
         idx = parentIdx;
       }
     }
+
     dequeue() {
       const min = this.values[0];
       const end = this.values.pop();
@@ -38,121 +44,151 @@ class Node {
       }
       return min;
     }
+
     sinkDown() {
       let idx = 0;
       const length = this.values.length;
       const element = this.values[0];
-      while (true) {
-        let leftChildIdx = 2 * idx + 1;
-        let rightChildIdx = 2 * idx + 2;
-        let leftChild, rightChild;
-        let swap = null;
-  
-        if (leftChildIdx < length) {
-          leftChild = this.values[leftChildIdx];
-          if (leftChild.priority < element.priority) {
-            swap = leftChildIdx;
-          }
-        }
-        if (rightChildIdx < length) {
-          rightChild = this.values[rightChildIdx];
-          if (
-            (swap === null && rightChild.priority < element.priority) ||
-            (swap !== null && rightChild.priority < leftChild.priority)
-          ) {
-            swap = rightChildIdx;
-          }
-        }
-        if (swap === null) break;
-        this.values[idx] = this.values[swap];
-        this.values[swap] = element;
-        idx = swap;
+      
+        while (true) {
+            let leftChildIdx = 2 * idx + 1;
+            let rightChildIdx = 2 * idx + 2;
+            let leftChild, rightChild;
+            let swap = null;
+    
+            if (leftChildIdx < length) {
+                leftChild = this.values[leftChildIdx];
+                if (leftChild.priority < element.priority) {
+                    swap = leftChildIdx;
+                }
+            }
+            
+            if (rightChildIdx < length) {
+                rightChild = this.values[rightChildIdx];
+                
+                if ( (swap === null && rightChild.priority < element.priority) || (swap !== null && rightChild.priority < leftChild.priority) ) {
+                    swap = rightChildIdx;
+                }
+            }
+            
+            if (swap === null) break;
+            
+            this.values[idx] = this.values[swap];
+            this.values[swap] = element;
+            idx = swap;
+
       }
     }
-  }
-  
-  //Dijkstra's algorithm only works on a weighted graph.
-  class WeightedGraph {
+}
+
+
+class WeightedGraph {
+
     constructor() {
-      this.adjacencyList = {};
+      this.adjacencyList = {}; //인접리스트
     }
-    addVertex(vertex) {
-      if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+
+    addVertex(vertex) { //점 추가
+      if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = []; //인접리스트 행 추가
     }
-    addEdge(vertex1, vertex2, weight) {
+
+    addEdge(vertex1, vertex2, weight) { //간선 추가
       this.adjacencyList[vertex1].push({ node: vertex2, weight });
       this.adjacencyList[vertex2].push({ node: vertex1, weight });
     }
-    Dijkstra(start, finish) {
-      const nodes = new PriorityQueue();
-      const distances = {};
-      const previous = {};
-      let path = []; //to return at end
-      let smallest;
-      //build up initial state
-      for (let vertex in this.adjacencyList) {
-        if (vertex === start) {
-          distances[vertex] = 0;
-          nodes.enqueue(vertex, 0);
-        } else {
-          distances[vertex] = Infinity;
-          nodes.enqueue(vertex, Infinity);
-        }
-        previous[vertex] = null;
-      }
-      // as long as there is something to visit
-      while (nodes.values.length) {
-        smallest = nodes.dequeue().val;
-        if (smallest === finish) {
-          //WE ARE DONE
-          //BUILD UP PATH TO RETURN AT END
-          while (previous[smallest]) {
-            path.push(smallest);
-            smallest = previous[smallest];
-          }
-          break;
-        }
-        if (smallest || distances[smallest] !== Infinity) {
-          for (let neighbor in this.adjacencyList[smallest]) {
-            //find neighboring node
-            let nextNode = this.adjacencyList[smallest][neighbor];
-            //calculate new distance to neighboring node
-            let candidate = distances[smallest] + nextNode.weight;
-            let nextNeighbor = nextNode.node;
-            if (candidate < distances[nextNeighbor]) {
-              //updating new smallest distance to neighbor
-              distances[nextNeighbor] = candidate;
-              //updating previous - How we got to neighbor
-              previous[nextNeighbor] = smallest;
-              //enqueue in priority queue with new priority
-              nodes.enqueue(nextNeighbor, candidate);
+
+    Dijkstra(start, finish) { //최단경로 알고리즘 : 다익스트라
+        const nodes = new PriorityQueue();
+        const distances = {};
+        const previous = {};
+        let path = []; //최단경로를 이루는 정점들을 저장할 배열
+        let smallest;
+
+        //2개의 점 사이의 거리 초기화
+        for (let vertex in this.adjacencyList) {
+            
+            if (vertex === start) { //시점과 동일한 경우
+            distances[vertex] = 0; //거리를 0으로 업데이트
+            nodes.enqueue(vertex, 0); //우선순위 큐에 추가
+            } else { //시점과 동일하지 않은 경우
+            distances[vertex] = Infinity; //거리를 무한으로 업데이트
+            nodes.enqueue(vertex, Infinity);
             }
-          }
+
+            previous[vertex] = null;
         }
-      }
-      return path.concat(smallest).reverse();
+
+        // as long as there is something to visit
+        while (nodes.values.length) { //우선순위 큐가 비어있지 않은 경우(=방문할 정점이 남아있는 경우)
+
+            smallest = nodes.dequeue().val; //가장 작은 ?을 가지는 우선순위 큐에서 뺴냄
+
+            if (smallest === finish) {
+                //WE ARE DONE
+                //BUILD UP PATH TO RETURN AT END
+                while (previous[smallest]) {
+                    path.push(smallest);
+                    smallest = previous[smallest];
+                }
+
+                break;
+            }
+
+            if (smallest || distances[smallest] !== Infinity) {
+                for (let neighbor in this.adjacencyList[smallest]) {
+                    //find neighboring node
+                    let nextNode = this.adjacencyList[smallest][neighbor];
+                    //calculate new distance to neighboring node
+                    let candidate = distances[smallest] + nextNode.weight;
+                    let nextNeighbor = nextNode.node;
+                    if (candidate < distances[nextNeighbor]) {
+                        //updating new smallest distance to neighbor
+                        distances[nextNeighbor] = candidate;
+                        //updating previous - How we got to neighbor
+                        previous[nextNeighbor] = smallest;
+                        //enqueue in priority queue with new priority
+                        nodes.enqueue(nextNeighbor, candidate);
+                    }
+                }
+            }
+        }
+
+        return path.concat(smallest).reverse();
     }
-  }
+}
   
   
+function getShortCut(){
+
+    //그래프 생성
+    var graph = new WeightedGraph();
+    var start = document.getElementById("start").value;
+    var finish = document.getElementById("finish").value;
+
+    graph.addVertex("A");
+    graph.addVertex("B");
+    graph.addVertex("C");
+    graph.addVertex("D");
+    graph.addVertex("E");
+    graph.addVertex("F");
+    
+    graph.addEdge("A", "B", 4);
+    graph.addEdge("A", "C", 2);
+    graph.addEdge("B", "E", 3);
+    graph.addEdge("C", "D", 2);
+    graph.addEdge("C", "F", 4);
+    graph.addEdge("D", "E", 3);
+    graph.addEdge("D", "F", 1);
+    graph.addEdge("E", "F", 1);
+
+    path = graph.Dijkstra(start, finish);
+
+    for (i = 0; i<path.length; i++ ){
+        console.log(path[i]);
+    }
+}
+
   
-  //EXAMPLES=====================================================================
-  
-  var graph = new WeightedGraph();
-  graph.addVertex("A");
-  graph.addVertex("B");
-  graph.addVertex("C");
-  graph.addVertex("D");
-  graph.addVertex("E");
-  graph.addVertex("F");
-  
-  graph.addEdge("A", "B", 4);
-  graph.addEdge("A", "C", 2);
-  graph.addEdge("B", "E", 3);
-  graph.addEdge("C", "D", 2);
-  graph.addEdge("C", "F", 4);
-  graph.addEdge("D", "E", 3);
-  graph.addEdge("D", "F", 1);
-  graph.addEdge("E", "F", 1);
-  
-  console.log(graph.Dijkstra("A", "E"));
+
+
+

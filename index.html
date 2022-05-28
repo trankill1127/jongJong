@@ -20,7 +20,7 @@
     <!--CSS 연결-->
     <link rel="stylesheet" href="css/style.css" />
 
-    <script src="js/mapping.js"></script>
+    
 
 </head>
 
@@ -41,9 +41,9 @@
         <form class="search_form">
             <div class="search_text">
                 <input id="start" type="text" size="50" placeholder="도착지를 입력하세요"><br>
-                <input id="end" type="text" size="50" placeholder="출발지를 입력하세요"><br>
+                <input id="finish" type="text" size="50" placeholder="출발지를 입력하세요"><br>
             </div>
-            <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="getCurrentPos()">검색</button>
+            <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="getShortCut()">검색</button>
         </form>    
     </div>
     
@@ -53,10 +53,13 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    
         
     <footer>
         <div class="copyright">© 2022. 등차수열 all rights reserved.</div>
     </footer>
+
+    <script src="js/mapping.js"></script>
 
 </body>
 </html>
