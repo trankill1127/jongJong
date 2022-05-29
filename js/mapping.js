@@ -157,6 +157,15 @@ class WeightedGraph {
     }
 }
   
+//정점, 위도, 경도 데이터
+var vertexData = [
+  ["집", 37.362830, 127.119538],
+  ["도서관", 37.358070, 127.116616],
+  ["마트", 37.365073, 127.114607],
+  ["초등학교", 37.364864, 127.113617],
+  ["놀이터", 37.366316, 127.111745],
+  ["역", 37.367670, 127.108387]
+]
   
 function getShortCut(){
 
@@ -165,27 +174,49 @@ function getShortCut(){
     var start = document.getElementById("start").value;
     var finish = document.getElementById("finish").value;
 
-    graph.addVertex("A");
-    graph.addVertex("B");
-    graph.addVertex("C");
-    graph.addVertex("D");
-    graph.addVertex("E");
-    graph.addVertex("F");
+    graph.addVertex("집"); //A
+    graph.addVertex("도서관"); //B
+    graph.addVertex("마트"); //C
+    graph.addVertex("초등학교"); //D
+    graph.addVertex("놀이터"); //E
+    graph.addVertex("역"); //F
     
-    graph.addEdge("A", "B", 4);
-    graph.addEdge("A", "C", 2);
-    graph.addEdge("B", "E", 3);
-    graph.addEdge("C", "D", 2);
-    graph.addEdge("C", "F", 4);
-    graph.addEdge("D", "E", 3);
-    graph.addEdge("D", "F", 1);
-    graph.addEdge("E", "F", 1);
+    graph.addEdge("집", "도서관", 4);
+    graph.addEdge("집", "마트", 2);
+    graph.addEdge("도서관", "놀이터", 3);
+    graph.addEdge("마트", "초등학교", 2);
+    graph.addEdge("마트", "역", 4);
+    graph.addEdge("초등학교", "놀이터", 3);
+    graph.addEdge("초등학교", "역", 1);
+    graph.addEdge("놀이터", "역", 1);
 
     path = graph.Dijkstra(start, finish);
+    var linePath=[];
 
     for (i = 0; i<path.length; i++ ){
-        console.log(path[i]);
+        console.log(path[i]); 
+        //A C D F E
+        //집 마트 초등학교 역 놀이터
+
+        for (j=0; j<vertexData.length; j++){
+            if (vertexData[j][0]==path[i]){
+              linePath.push(new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]));
+            }
+        }
     }
+  
+  // 지도에 표시할 선을 생성합니다
+  var polyline = new kakao.maps.Polyline({
+      path: linePath, // 선을 구성하는 좌표배열 입니다
+      strokeWeight: 5, // 선의 두께 입니다
+      strokeColor: '#DC143C', // 선의 색깔입니다
+      strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+      strokeStyle: 'solid' // 선의 스타일입니다
+  });
+  
+  // 지도에 선을 표시합니다 
+  polyline.setMap(map);  
+
 }
 
   

@@ -1,8 +1,10 @@
 
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    
     mapOption = { 
-        center: new kakao.maps.LatLng(37.551054, 127.073939), // 지도의 중심좌표
+        //center: new kakao.maps.LatLng(37.551054, 127.073939), // 지도의 중심좌표(세종대)
+        center : new kakao.maps.LatLng(37.362830, 127.119538),
         level: 3 // 지도의 확대 레벨
     };
 
@@ -35,3 +37,10 @@ function locationLoadError(pos){
     alert('위치 정보를 가져오는데 실패했습니다.');
 };
 
+function setCenter() {            
+    // 이동할 위도 경도 위치를 생성합니다 
+    var moveLatLon = new kakao.maps.LatLng(33.452613, 126.570888);
+    
+    // 지도 중심을 이동 시킵니다
+    map.setCenter(moveLatLon);
+}
