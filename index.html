@@ -5,9 +5,8 @@
     <title>종종</title>
     <meta name="description" content="세종대 최적 경로 안내 서비스"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta name="author" content="등차수열"/>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scaale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     
     <!--파비콘 설정-->
     <link rel="icon" href="img/icons8-walking-ios-16.png">
@@ -43,21 +42,27 @@
                 <input id="start" type="text" size="50" placeholder="도착지를 입력하세요"><br>
                 <input id="finish" type="text" size="50" placeholder="출발지를 입력하세요"><br>
             </div>
-            <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="getShortCut()">검색</button>
+            <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="mainFunc()">검색</button>
         </form>    
     </div>
     
     <!--위치추적 기능 https://dawitblog.tistory.com/50-->
     <!-- 부트스트랩 primary 버튼 -->
     <!-- 부트스트랩 이용을 위한 jQuery와 CDN -->
+
+    <!--jQuery CDN : js를 간편하게 사용할 수 있도록 단순화시킨 오픈 소스 기반의 js 라이브러리-->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!--Bootstrap CDN-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+    
     
         
     <footer>
         <div class="copyright">© 2022. 등차수열 all rights reserved.</div>
     </footer>
+
 
     <script src="js/mapping.js"></script>
 

@@ -81,7 +81,6 @@ class PriorityQueue { //우선순위 큐
     }
 }
 
-
 class WeightedGraph {
 
     constructor() {
@@ -237,6 +236,66 @@ function getShortCut(){
 }
 
   
+let timer;
+var user=null;
+var userPos = null;
+
+function startClock(){
+
+  function getLocation() {
+    let lat, long;
+    if (navigator.geolocation) { // GPS를 지원하면
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+      
+            console.log(lat, long); //주기적으로 좌표가 측장되는지 확인
+
+            userPos = new kakao.maps.LatLng(lat, long); 
+           
+            // 지도에 표시할 원을 생성합니다
+            user = new kakao.maps.Circle({
+              center : userPos,  // 원의 중심좌표 입니다 
+              radius: 5, // 미터 단위의 원의 반지름입니다 
+              strokeWeight: 2, // 선의 두께입니다 
+              strokeColor: '#ffffff', // 선의 색깔입니다
+              strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+              strokeStyle: 'solid', // 선의 스타일 입니다
+              fillColor: '#DC143C', // 채우기 색깔입니다
+              fillOpacity: 1  // 채우기 불투명도 입니다   
+            }); 
+            user.setMap(null); 
+            user.setMap(map); //지도에 원 표시
+
+            map.panTo(userPos);
+
+        }, function(error) {
+            console.error(error);
+        }, {
+            enableHighAccuracy: false,
+            maximumAge: 0,
+            timeout: Infinity
+        });
+    } else {
+        alert('이 기기는 GPS를 지원하지 않기 떄문에 사용자의 현재위치 추적이 불가능합니다.');
+        return;
+    }
+  }
+
+  timer=setInterval(getLocation, 1000);
+}
+
+function stopClock(){
+  clearInterval(timer);
+}
 
 
 
+function mainFunc(){
+  
+  getShortCut();
+  startClock();
+
+}
