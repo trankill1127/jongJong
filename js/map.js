@@ -24,23 +24,15 @@ function locationLoadSuccess(pos){
     map.panTo(currentPos);
 
     // 마커 생성
-    var marker = new kakao.maps.Marker({
-        position: currentPos
-    });
+    //var marker = new kakao.maps.Marker({
+    //    position: currentPos
+    //});
 
     // 기존에 마커가 있다면 제거
-    marker.setMap(null);
-    marker.setMap(map);
+    //marker.setMap(null);
+    //marker.setMap(map);
 };
 
 function locationLoadError(pos){
     alert('위치 정보를 가져오는데 실패했습니다.');
 };
-
-function setCenter() {            
-    // 이동할 위도 경도 위치를 생성합니다 
-    var moveLatLon = new kakao.maps.LatLng(33.452613, 126.570888);
-    
-    // 지도 중심을 이동 시킵니다
-    map.setCenter(moveLatLon);
-}

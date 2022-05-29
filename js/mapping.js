@@ -166,13 +166,27 @@ var vertexData = [
   ["놀이터", 37.366316, 127.111745],
   ["역", 37.367670, 127.108387]
 ]
+
+var polyline = new kakao.maps.Polyline({
+  strokeWeight: 5, // 선의 두께 입니다
+  strokeColor: '#DC143C', // 선의 색깔입니다
+  strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+  strokeStyle: 'solid' // 선의 스타일입니다
+});
   
+var finishMarker = new kakao.maps.Marker({
+  position: null
+});
+
+
 function getShortCut(){
 
     //그래프 생성
     var graph = new WeightedGraph();
     var start = document.getElementById("start").value;
     var finish = document.getElementById("finish").value;
+    var finishPos = null;
+   
 
     graph.addVertex("집"); //A
     graph.addVertex("도서관"); //B
@@ -199,23 +213,26 @@ function getShortCut(){
         //집 마트 초등학교 역 놀이터
 
         for (j=0; j<vertexData.length; j++){
-            if (vertexData[j][0]==path[i]){
+            if (vertexData[j][0]==path[i]){//최단 경로를 이루는 정점의 좌표
               linePath.push(new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]));
+            }
+            if (vertexData[j][0]==finish){ //종점 좌표
+              finishPos = new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]);
             }
         }
     }
+
+    
   
   // 지도에 표시할 선을 생성합니다
-  var polyline = new kakao.maps.Polyline({
-      path: linePath, // 선을 구성하는 좌표배열 입니다
-      strokeWeight: 5, // 선의 두께 입니다
-      strokeColor: '#DC143C', // 선의 색깔입니다
-      strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-      strokeStyle: 'solid' // 선의 스타일입니다
-  });
+  polyline.setMap(null);
+  polyline.setPath(linePath);
+  polyline.setMap(map);  //지도에 경로 표시
+
+  finishMarker.setMap(null);
+  finishMarker.setPosition(finishPos);
+  finishMarker.setMap(map);
   
-  // 지도에 선을 표시합니다 
-  polyline.setMap(map);  
 
 }
 
