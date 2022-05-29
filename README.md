@@ -8,11 +8,11 @@ https://gist.github.com/Prottoy2938/66849e04b0bac459606059f5f9f3aa1a
 
 정점(위도, 경도), 간선(거리)
 
-### 4. 디자인
+### 3. 웹
 
 경로, m, 시간, 사용자 현재위치 추적
 
-### ~12. 웹 호스팅~ 
+### ~4. 웹 호스팅~ 
 
 https://trankill1127.github.io/jongJong/
 
