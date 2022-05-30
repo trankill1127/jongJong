@@ -5,7 +5,7 @@
     <title>종종</title>
     <meta name="description" content="세종대 최적 경로 안내 서비스"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta name="author" content="등차수열"/>
     
     <!--파비콘 설정-->
@@ -27,20 +27,26 @@
 
     <!--header-->
     <header>
-        <div class="logo">종종</div>
+        <div class="inner">
+            <div class="logo">종종</div>
+        </div>
     </header>
 
     <!--지도-->
-    <div id="map" style="width:100%; height: 700px;"></div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28fee11b0a4261c36abc053b39d07669"></script>
-    <script src="js/map.js"></script>
+    <div class="">
+
+        <div id="map" style="width:100%; height: 700px;"></div>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28fee11b0a4261c36abc053b39d07669"></script>
+        <script src="js/map.js"></script>
+
+    </div>
 
     <!---->
     <div id="search_wrap">
         <form class="search_form">
             <div class="search_text">
-                <input id="start" type="text" size="50" placeholder="도착지를 입력하세요"><br>
-                <input id="finish" type="text" size="50" placeholder="출발지를 입력하세요"><br>
+                <input id="start" type="text" placeholder="출발지를 입력하세요"><br>
+                <input id="finish" type="text" placeholder="도착지를 입력하세요"><br>
             </div>
             <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="mainFunc()">검색</button>
         </form>    
