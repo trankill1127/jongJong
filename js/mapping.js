@@ -644,13 +644,21 @@ function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
+function isChecked() {
+  // 1. checkbox element를 찾습니다.
+  const checkbox = document.getElementById('wantNav');
+
+  // 2. checked 속성을 체크한 후 값 반환
+  return checkbox.checked;
+}
+
+
 function startClock() {
 
   function getLocation() {
     let lat, long;
-    var m_w_flag = isMobile();
 
-    if (m_w_flag) { // 모바일 기기인 경우
+    if (isMobile() && isChecked()) { // 모바일 기기이며 사용자가 위치 추적 서비스를 원하는 경우
 
       navigator.geolocation.getCurrentPosition(function (position) {
 
@@ -691,7 +699,7 @@ function startClock() {
     }
   }
 
-  timer = setInterval(getLocation, 1000);
+  timer = setInterval(getLocation, 2000);
 }
 
 function stopClock() {

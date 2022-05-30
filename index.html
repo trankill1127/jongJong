@@ -12,17 +12,14 @@
 
     <!--파비콘 설정-->
     <link rel="icon" href="img/white_logo.png">
-
     <!--CSS 속성 초기화-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
         integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <!--폰트 설정-->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <!--CSS 연결-->
     <link rel="stylesheet" href="css/style.css" />
-
     <!--jQuery CDN : js를 간편하게 사용할 수 있도록 단순화시킨 오픈 소스 기반의 js 라이브러리-->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <!--Bootstrap CDN-->
@@ -35,7 +32,6 @@
     <!--header-->
     <header>
         <div class="inner">
-
             <img class="logoImg" src="img/white_logo.png">
             <div class="logo">종종</div>
             <div class="subLogo">세종대 최적경로 안내 서비스</div>
@@ -45,12 +41,10 @@
     <!--지도-->
     <section>
         <div class="mapContainer">
-
             <div id="map"></div>
             <script type="text/javascript"
                 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28fee11b0a4261c36abc053b39d07669"></script>
             <script src="js/map.js"></script>
-
         </div>
     </section>
 
@@ -64,6 +58,9 @@
                 </div>
                 <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="mainFunc()">검색</button>
             </form>
+            <div class="checkNav">
+                실시간 위치 추적 서비스를 사용하시겠습니까? <input id="wantNav" type='checkbox' name='wantNav' value="true"/>
+            </div>
         </div>
     </section>
 
@@ -112,7 +109,7 @@
             </tr>
         </table>
 
-        <div class="caution_2">2. 웹으로 접속하시는 경우 위치 추적 서비스를 지원하지 않습니다. </div>
+        <div class="caution_2">2. 웹 브라우저로 이용하시는 경우 위치 추적 서비스를 지원하지 않습니다. </div>
         
     </section>
 
