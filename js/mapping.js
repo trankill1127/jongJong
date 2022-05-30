@@ -167,7 +167,7 @@ class WeightedGraph {
 }
   
 //정점, 위도, 경도 데이터
-var vertexData = [
+var vertexData =  [
   ["1", 37.552929, 127.072469],
   ["2", 37.552120 ,127.072817],
   ["3", 37.552757 ,127.073613],
@@ -214,7 +214,7 @@ var vertexData = [
   ["44", 37.549881 ,127.074177],
   ["45", 37.549630 ,127.074110],
   ["46", 37.549619 ,127.073987],
-  ["47", 37.549633 ,127.074347],
+  ["47", 37.549707 ,127.074334],
   ["48", 37.549770 ,127.074299],
   ["49", 37.550154 ,127.074114],
   ["50", 37.549860 ,127.074427],
@@ -230,7 +230,7 @@ var vertexData = [
   ["60", 37.548348 ,127.073351],
   ["61", 37.548936 ,127.074083],
   ["62", 37.549315 ,127.074406],
-  ["63", 67.549853 ,127.074876],
+  ["63", 37.549853 ,127.074876],
   ["64", 37.549786 ,127.074896],
   ["65", 37.549695 ,127.074672],
   ["66", 37.549661 ,127.074639],
@@ -240,23 +240,23 @@ var vertexData = [
   ["70", 37.549193 ,127.074773],
   ["71", 37.548886 ,127.074644],
   ["72", 37.549046 ,127.075229],
-  ["73", 37.550522 ,127.075807],
-  ["74", 37.550405 ,127.076028],
-  ["75", 37.550779 ,127.076178],
-  ["76", 37.550983 ,127.075886],
+  ["73", 37.55028894791896, 127.07553376118724],
+  ["74", 37.55020093930908, 127.07578546538973],
+  ["75", 37.55038784363281, 127.07586769975154],
+  ["76", 37.55050283158843, 127.07569523837321],
   ["77", 37.551071 ,127.076302],
   ["78", 37.551202 ,127.075918],
-  ["79", 37.551154 ,127.075856],
-  ["80", 37.550992 ,127.075127],
-  ["81", 37.550966 ,127.075162],
-  ["82",37.551037 ,127.075261],
-  ["83", 37.551022 ,127.075288],
-  ["84", 37.550798 ,127.075406],
+  ["79", 37.55100289974998, 127.07567311077963],
+  ["80", 37.5507916963534, 127.07483971041053],
+  ["81", 37.55073534364052, 127.07490331005661],
+  ["82",37.55103694754837, 127.07526574521138],
+  ["83", 37.551027 ,127.075285],
+  ["84",  37.55048734443272, 127.07525670510664],
   ["85", 37.550834 ,127.075442],
   ["86", 37.548890 ,127.075007],
-  ["87", 37.552038, 127.073313],
-  ["88", 37.550889, 127.073574]
-]
+  ["87", 37.552038 ,127.073313],
+  ["88", 37.550889 ,127.073574],
+  ]
 
 var polyline = new kakao.maps.Polyline({
   strokeWeight: 5, // 선의 두께 입니다
@@ -269,6 +269,10 @@ var finishMarker = new kakao.maps.Marker({
   position: null
 });
 
+var infowindow = new kakao.maps.InfoWindow({
+  position : null,
+  content : null
+});
 
 function getShortCut(){
 
@@ -421,21 +425,22 @@ function getShortCut(){
   graph.addEdge("75", "74", 15.00);
   graph.addEdge("75", "77", 82.00);
 
-    path = graph.Dijkstra(start, finish);
-    var linePath=[];
+  path = graph.Dijkstra(start, finish);
+  var linePath=[];
 
-    for (i = 0; i<path.length; i++ ){
+  for (i = 0; i<path.length; i++ ){
         console.log(path[i]); 
 
-        for (j=0; j<vertexData.length; j++){
-            if (vertexData[j][0]==path[i]){//최단 경로를 이루는 정점의 좌표
-              linePath.push(new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]));
-            }
-            if (vertexData[j][0]==finish){ //종점 좌표
-              finishPos = new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]);
-            }
+      for (j=0; j<vertexData.length; j++){
+          
+        if (vertexData[j][0]==path[i]){//최단 경로를 이루는 정점의 좌표
+            linePath.push(new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]));
+        }
+        if (vertexData[j][0]==finish){ //종점 좌표
+          finishPos = new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]);
         }
     }
+  }
   
   // 지도에 표시할 선을 생성합니다
   polyline.setMap(null);
@@ -448,27 +453,31 @@ function getShortCut(){
   
    
 
-// 인포윈도우를 생성합니다
-var infowindow = new kakao.maps.InfoWindow({
-  position : finishPos, 
-  content : shortDis+"m<br>"+"도보 약"+shortTime+"분"
-});
-
-// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-infowindow.open(map, finishMarker); 
+  // 인포윈도우를 생성합니다
+  infowindow.close();
+  infowindow.setPosition(finishPos);
+  infowindow.setContent(shortDis+"m<br>"+"도보 약"+shortTime+"분");
+  // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+  infowindow.open(map, finishMarker); 
 
 }
 
   
 let timer;
-var user=null;
 var userPos = null;
+var prevUser = null;
+
+function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
 
 function startClock(){
 
   function getLocation() {
     let lat, long;
-    if (navigator.geolocation) { // GPS를 지원하면
+    var m_w_flag = isMobile();
+
+    if (m_w_flag) { // 모바일 기기인 경우
 
         navigator.geolocation.getCurrentPosition(function(position) {
 
@@ -480,7 +489,11 @@ function startClock(){
             userPos = new kakao.maps.LatLng(lat, long); 
            
             // 지도에 표시할 원을 생성합니다
-            user = new kakao.maps.Circle({
+            if (prevUser!=null) {
+              prevUser.setMap(null); 
+            }
+            
+              var user = new kakao.maps.Circle({
               center : userPos,  // 원의 중심좌표 입니다 
               radius: 5, // 미터 단위의 원의 반지름입니다 
               strokeWeight: 2, // 선의 두께입니다 
@@ -490,10 +503,10 @@ function startClock(){
               fillColor: '#DC143C', // 채우기 색깔입니다
               fillOpacity: 1  // 채우기 불투명도 입니다   
             }); 
-            user.setMap(null); 
             user.setMap(map); //지도에 원 표시
+            prevUser =user;
 
-            //map.panTo(userPos);
+            map.panTo(userPos);
 
         }, function(error) {
             console.error(error);
@@ -502,10 +515,7 @@ function startClock(){
             maximumAge: 0,
             timeout: Infinity
         });
-    } else {
-        alert('이 기기는 GPS를 지원하지 않기 떄문에 사용자의 현재위치 추적이 불가능합니다.');
-        return;
-    }
+    } 
   }
 
   timer=setInterval(getLocation, 1000);
