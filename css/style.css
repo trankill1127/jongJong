@@ -1,75 +1,102 @@
 * {
-   box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
-
-
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    width: 100%;
-    height: 100%;
+    background-color: #DC143C;
 }
 
 header {
-    
+    display : block;
+    margin : auto;
 }
 .inner {
-    background-color: #DC143C;
-    
-    width: 100%;
-    height: 20%;
-
-    padding: 0.5em 0 0.5em 0;
-
-    
+    padding: 0.8em 0;
+    text-align: center;
+    justify-content: center;
 }
-
+.logoImg {
+    width: 2.5em;
+    height: 2.5em;
+}
 .logo {
     color: white;
-    font-size: 35px;
-    display: flex;
-
-    justify-content: center;
-    text-align: center;
+    font-size: 30px;
+}
+.subLogo {
+    color: white;
+    font-size: 15px;
+    padding: 0.2em 0 0 0;
 }
 
-
-
+.mapContainer {
+    width: 100%;
+    height: 450px;
+}
 #map {
-    width: 80%;
+    width: 100%;
     height: 100%;
 }
-
+.path_info {
+    display: block;
+    background: #657186e3;
+    color: #fff;
+    text-align: center;
+    border-radius:4px;
+}
 
 .search_wrap {
-    float: right;
-    
+    width: 100%;
 }
-
 .search_form {
-    
+
     display: flex;
     justify-content: center;
-    background-color: #dc143c;
-    padding: 1.8em 0 2em 0;
-}
 
-.search_text {
-    
+    padding: 3em 0;
+}
+.caution_1 {
+    width: 80%;
+    color: white;
+    display: flex;
+
+    justify-content: center;
+    margin: auto;
+    padding: 0 0 1em 0;
+}
+table {
+    width: 60%;
+}
+td {
+    width: 25%;
+}
+.caution_2 {
+    width: 80%;
+    color: white;
+    display: flex;
+
+    justify-content: center;
+    margin: auto;
+    padding: 1em 0 2.5em 0;
 }
 
 footer {
-    background-color: #DC143C;
-    width: 100%;
-    color: white;
+    display : block;
+    margin : auto;
 }
-
+.inner {
+    width: 100%;
+    height: 20%;
+}
 .copyright {
+    color: white;
     font-size: 15px;
     display: flex;
     justify-content: center;
 }
 
-@media only screen and (min-width: 1200px) {  /*가로가 1200px 보다 커지면 더 이상 늘어나지 X*/
+@media only screen and (min-width: 1200px) {
+    /*가로가 1200px 보다 커지면 더 이상 늘어나지 X*/
 
 }
