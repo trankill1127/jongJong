@@ -1,10 +1,11 @@
 var shortDis = null; //최단경로 길이
 var shortTime = null;//최단경로를 가는데 걸리는 예상 시간
 
-let timer;
-var userPos = null;
-var prevUser = null;
+let timer; //현재 위치 추적 시 사용할 타이머
+var userPos = null; //사용자의 현재위치
+var prevUser = null; //사용자의 직전위치
 
+//최단경로를 그리기 위한 폴리라인
 var polyline = new kakao.maps.Polyline({
   strokeWeight: 5, // 선의 두께 입니다
   strokeColor: '#DC143C', // 선의 색깔입니다
@@ -12,19 +13,22 @@ var polyline = new kakao.maps.Polyline({
   strokeStyle: 'solid' // 선의 스타일입니다
 });
 
+//도착지 마커
 var finishMarker = new kakao.maps.Marker({
   position: null
 });
 
+//경로의 길이와 예상 소요 시간을 출력할 인포윈도우
 var infowindow = new kakao.maps.InfoWindow({
   position: null,
   content: null
 });
 
+//인포윈도우를 커스텀할 떄 요소들을 초기화할 때 사용할 변수
 var initInfoWindow = null;
 
-
-var vertexData = [ //정점의 ID, 위도, 경도 데이터
+//정점의 ID, 위도, 경도 데이터
+var vertexData = [ 
   ["후문", 37.552929, 127.072469],
   ["2", 37.552120, 127.072817],
   ["3", 37.552757, 127.073613],
@@ -181,7 +185,8 @@ var vertexData = [ //정점의 ID, 위도, 경도 데이터
   ["박물관", 37.551469484927225, 127.0751742317245]
 ]
 
-//다익스트라 알고리즘 구현을 위한 클래스
+//다익스트라 알고리즘 구현을 위한 클래스들
+//1. 노드
 class Node { 
 
   constructor(val, priority) {
@@ -190,8 +195,8 @@ class Node {
   }
 
 }
-
-class PriorityQueue { //우선순위 큐
+//2. 우선순위 큐
+class PriorityQueue { 
 
   constructor() {
     this.values = [];
@@ -264,7 +269,7 @@ class PriorityQueue { //우선순위 큐
     }
   }
 }
-
+//3. 가중치 그래프
 class WeightedGraph {
 
   constructor() {
@@ -347,18 +352,18 @@ class WeightedGraph {
   }
 }
 
-
 //최단경로를 구하는 함수
 function getShortCut() {
 
+  var graph = new WeightedGraph(); //그래프
+  var start = document.getElementById("start").value; //출발 건물
+  var finish = document.getElementById("finish").value; //도착 건물
+  var finishPos = null; //도착 건물의 좌표
+  var linePath = []; //최단경로를 이루는 정점들의 좌표를 저장할 배열
+
   //그래프 생성
-  var graph = new WeightedGraph();
-  var start = document.getElementById("start").value;
-  var finish = document.getElementById("finish").value;
-  var finishPos = null;
-  var linePath = [];
 
-
+  //정점 추가
   graph.addVertex("후문"); graph.addVertex("2"); graph.addVertex("3"); graph.addVertex("4"); graph.addVertex("5");
   graph.addVertex("6"); graph.addVertex("7"); graph.addVertex("8"); graph.addVertex("9"); graph.addVertex("10");
   graph.addVertex("11"); graph.addVertex("12"); graph.addVertex("13"); graph.addVertex("14"); graph.addVertex("15");
@@ -389,6 +394,7 @@ function getShortCut() {
   graph.addVertex("다산관3"); graph.addVertex("율곡관"); graph.addVertex("우정당"); graph.addVertex("우정당1"); graph.addVertex("우정당2"); graph.addVertex("학술정보원");
   graph.addVertex("박물관"); graph.addVertex("대양홀");
 
+  //간선 추가
   graph.addEdge("대양AI센터", "대양AI센터1", 24);
   graph.addEdge("대양AI센터", "대양AI센터2", 27);
   graph.addEdge("대양AI센터", "대양AI센터3", 32);
@@ -590,14 +596,15 @@ function getShortCut() {
   graph.addEdge("다산관2", "89", 10);
   graph.addEdge("다산관1", "24", 10);
   graph.addEdge("다산관3", "4", 15);
-  path = graph.Dijkstra(start, finish);
+
+  path = graph.Dijkstra(start, finish); //다익스트라 알고리즘을 통해 최단경로를 구성하는 정점들을 배열에 저장
 
   for (i = 0; i < path.length; i++) {
     console.log(path[i]);
 
     for (j = 0; j < vertexData.length; j++) {
 
-      if (vertexData[j][0] == path[i]) {//최단 경로를 이루는 정점의 좌표
+      if (vertexData[j][0] == path[i]) {//최단 경로를 이루는 정점의 좌표 저장
         linePath.push(new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]));
       }
       if (vertexData[j][0] == finish) { //종점 좌표
@@ -616,15 +623,13 @@ function getShortCut() {
   finishMarker.setPosition(finishPos);
   finishMarker.setMap(map); //지도에 마커 표시
 
-  
-
   // 인포윈도우
   infowindow.close(); //이전 검색기록의 인포윈도우 삭제
   infowindow.setPosition(finishPos);
   infowindow.setContent("<div class='path_info'>"+shortDis + "m<br>" + "도보 약 " + shortTime + "분</div>");
   infowindow.open(map, finishMarker); //도착지 마커 위에 표시
 
-
+  //인포윈도위 기본 디자인 초기화
   initInfoWindow = document.querySelectorAll('.path_info');
   initInfoWindow.forEach(function(e) {
       var w = e.offsetWidth + 10;
@@ -640,10 +645,12 @@ function getShortCut() {
 
 }
 
+//사용자의 기기가 모바일인지 아닌지
 function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
+//사용자가 현재위치 추적 서비스를 원하는지 아닌지
 function isChecked() {
   // 1. checkbox element를 찾습니다.
   const checkbox = document.getElementById('wantNav');
@@ -652,9 +659,10 @@ function isChecked() {
   return checkbox.checked;
 }
 
-
+//주기적인 함수의 실행을 위한 함수
 function startClock() {
 
+  //사용자의 현재위치를 추적하는 함수
   function getLocation() {
     let lat, long;
 
@@ -667,27 +675,27 @@ function startClock() {
 
         console.log(lat, long); //주기적으로 좌표가 측장되는지 확인
 
-        userPos = new kakao.maps.LatLng(lat, long);
+        userPos = new kakao.maps.LatLng(lat, long); 
 
-        // 지도에 표시할 원을 생성합니다
-        if (prevUser != null) {
-          prevUser.setMap(null);
+        if (prevUser != null) { //이전에 표시했던 사용자 위치가 있다면
+          prevUser.setMap(null); //지도에서 지워줌
         }
 
+        // 지도에 사용자 마커 생성
         var user = new kakao.maps.Circle({
-          center: userPos,  // 원의 중심좌표 입니다 
-          radius: 5, // 미터 단위의 원의 반지름입니다 
-          strokeWeight: 2, // 선의 두께입니다 
-          strokeColor: '#ffffff', // 선의 색깔입니다
-          strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-          strokeStyle: 'solid', // 선의 스타일 입니다
-          fillColor: '#DC143C', // 채우기 색깔입니다
-          fillOpacity: 1  // 채우기 불투명도 입니다   
+          center: userPos,  // 원의 중심좌표 
+          radius: 5, // 미터 단위의 원의 반지름 
+          strokeWeight: 2, // 선의 두께
+          strokeColor: '#ffffff', // 선의 색깔
+          strokeOpacity: 1, // 선의 불투명도
+          strokeStyle: 'solid', // 선의 스타일
+          fillColor: '#DC143C', // 채우기 색깔
+          fillOpacity: 1  // 채우기 불투명도 
         });
-        user.setMap(map); //지도에 원 표시
-        prevUser = user;
+        user.setMap(map); //지도에 사용자 마커로 사용할 원 표시
+        prevUser = user; //이후에 지울 수 있도록 사용자 마커의 정보를 prevUser로 저장
 
-        map.panTo(userPos);
+        map.panTo(userPos); //지도 중심을 사용자 위치로 이동
 
       }, function (error) {
         console.error(error);
@@ -699,17 +707,15 @@ function startClock() {
     }
   }
 
-  timer = setInterval(getLocation, 2000);
+  timer = setInterval(getLocation, 2000); //주기적으로 실행할 함수를 지정 
 }
 
 function stopClock() {
-  clearInterval(timer);
+  clearInterval(timer); //타이머 삭제
 }
 
 
-function mainFunc() {
-
-  getShortCut();
-  startClock();
-
+function mainFunc() { //html의 검색 버튼과 이어줄 함수
+  getShortCut(); //최단경로를 구하고
+  startClock(); //타이머 시작
 }

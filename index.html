@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <title>종종</title>
     <meta name="description" content="세종대 최적 경로 안내 서비스" />
@@ -10,35 +11,41 @@
         content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta name="author" content="등차수열" />
 
-    <!--파비콘 설정-->
-    <link rel="icon" href="img/white_logo.png">
     <!--CSS 속성 초기화-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
         integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!--파비콘 설정-->
+    <link rel="icon" href="img/white_logo.png">
+
     <!--폰트 설정-->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    
     <!--CSS 연결-->
     <link rel="stylesheet" href="css/style.css" />
+
     <!--jQuery CDN : js를 간편하게 사용할 수 있도록 단순화시킨 오픈 소스 기반의 js 라이브러리-->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <!--Bootstrap CDN-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+    
+    
 </head>
 
 <body>
 
-    <!--header-->
     <header>
         <div class="inner">
             <img class="logoImg" src="img/white_logo.png">
-            <div class="logo">종종</div>
+            <div class="logo">
+                <a href="https://trankill1127.github.io/jongJong/" target="_self">종종</a>
+            </div>
             <div class="subLogo">세종대 최적경로 안내 서비스</div>
         </div>
     </header>
 
-    <!--지도-->
+    <!--카카오 맵-->
     <section>
         <div class="mapContainer">
             <div id="map"></div>
@@ -48,7 +55,7 @@
         </div>
     </section>
 
-    <!--검색창-->
+    <!--검색 관련-->
     <section>
         <div class="search_wrap">
             <form class="search_form">
@@ -59,18 +66,15 @@
                 <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="mainFunc()">검색</button>
             </form>
             <div class="checkNav">
-                실시간 위치 추적 서비스를 사용하시겠습니까? <input id="wantNav" type='checkbox' name='wantNav' value="true"/>
+                실시간 위치 추적 서비스를 사용하시겠습니까? <input id="wantNav" type='checkbox' name='wantNav' />
             </div>
         </div>
     </section>
 
-    <!--사용 안내문-->
+    <!--안내문-->
     <section>
-
-        
-
-        <div class="caution_1">1. 출발지와 도착지의 명칭을 정확하게 입력해주셔야 합니다.</div>
-        <table class="buildings" align="center">
+        <div class="caution_1">1. 출발지와 도착지의 명칭을 정확하게 입력해주셔야 합니다.</div> 
+        <table class="buildings" align="center"> <!--캠퍼스 내 건물들의 이름들을 담은 표-->
             <tr align="center" bgcolor="white">
                 <td>정문</td>
                 <td>후문</td>
@@ -108,19 +112,19 @@
                 <td>대양AI센터</td>
             </tr>
         </table>
-
         <div class="caution_2">2. 웹 브라우저로 이용하시는 경우 위치 추적 서비스를 지원하지 않습니다. </div>
-        
     </section>
 
+    <!--푸터-->
     <footer>
         <div class="inner">
-            <div class="copyright">© 2022. 등차수열 all rights reserved.</div>
+            <div class="copyright">
+                <a href="https://github.com/trankill1127/jongJong" target="_blank">© 2022. 등차수열 all rights reserved.</a>
+            </div>
         </div>
-
     </footer>
 
-
+    <!--js 연결-->
     <script src="js/mapping.js"></script>
 
 </body>
