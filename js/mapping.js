@@ -666,6 +666,10 @@ function startClock() {
   function getLocation() {
     let lat, long;
 
+    if (prevUser != null) { //이전에 표시했던 사용자 위치가 있다면
+      prevUser.setMap(null); //지도에서 지워줌
+    }
+
     if (isMobile() && isChecked()) { // 모바일 기기이며 사용자가 위치 추적 서비스를 원하는 경우
 
       navigator.geolocation.getCurrentPosition(function (position) {
