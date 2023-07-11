@@ -26,6 +26,8 @@
 > ##### Git, Github, Visual Studio Code
 #### Development
 > ##### HTML5, CSS3, JavaScript
+> #### Resources 
+> ##### Kakao 지도 API
 #### Communication 
 > ##### Zoom, Google Docs
 
