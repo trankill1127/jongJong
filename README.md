@@ -1,23 +1,41 @@
-## 2022 소프트웨어학과 학술제
+</br>
 
-### 1. 최단거리 알고리즘 구현
+### 🔎 About the project
 
-https://gist.github.com/Prottoy2938/66849e04b0bac459606059f5f9f3aa1a
+<div><img width=200px src="https://github.com/trankill1127/jongJong/assets/73770924/7565709f-2406-492b-8c6e-8ee8dd7039a7"></div>
 
-### 2. 지도에 경로 표시 위한 데이터 관련 작업
+##### [ 22-1 소프트웨어학과 학술제 ]
+#### 세종대학교 내에서 목적지까지의 최단 경로를 안내해주는 웹 서비스
+##### : 아직 존재하지 않는 서비스, 세종대 학생들에게 실질적인 도움을 줄 수 있는 서비스를 개발하고자 위와 같은 서비스를 기획하게 되었다.
 
-정점(위도, 경도), 간선(거리)
+</br>
 
-### 3. 웹
+### 🖥 Layouts
+<div><img width=350px src="https://github.com/trankill1127/jongJong/assets/73770924/352bb570-0a15-4fbe-9c7e-f52eeb48f037">
+</div>
 
-경로, m, 시간, 사용자 현재위치 추적
+</br>
 
-### 4. 웹 호스팅
+### ⚙️ Functions
+- 입력한 출발지부터 도착지까지의 최단경로 안내
 
-https://trankill1127.github.io/jongJong/
+</br>
 
-[깃허브 웹 호스팅 사용법](https://ya-ya.tistory.com/m/14)
+### 🛠️ Built With 
+#### Environment 
+> ##### Git, Github, Visual Studio Code
+#### Development
+> ##### HTML5, CSS3, JavaScript
+#### Communication 
+> ##### Zoom, Google Docs
 
-[깃허브 웹 호스팅 도메인 주소 참고사항](https://github.com/codingeverybody/codingyahac/issues/62)
+</br>
 
-[깃허브 웹 호스팅에 카카오맵 API 사용법](https://kkt102.tistory.com/69)
+---
+
+</br>
+
+### 🔄 Retrospective
+[나의 두번째 프로젝트 : 종종](https://velog.io/@trankill1127/%EB%82%98%EC%9D%98-%EB%91%90%EB%B2%88%EC%A7%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%A2%85%EC%A2%85)
+
+</br>
