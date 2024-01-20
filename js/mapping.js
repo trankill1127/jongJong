@@ -1,5 +1,5 @@
 var shortDis = null; //최단경로 길이
-var shortTime = null;//최단경로를 가는데 걸리는 예상 시간
+var shortTime = null; //최단경로를 가는데 걸리는 예상 시간
 
 let timer; //현재 위치 추적 시 사용할 타이머
 var userPos = null; //사용자의 현재위치
@@ -8,49 +8,49 @@ var prevUser = null; //사용자의 직전위치
 //최단경로를 그리기 위한 폴리라인
 var polyline = new kakao.maps.Polyline({
   strokeWeight: 5, // 선의 두께 입니다
-  strokeColor: '#DC143C', // 선의 색깔입니다
+  strokeColor: "#DC143C", // 선의 색깔입니다
   strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-  strokeStyle: 'solid' // 선의 스타일입니다
+  strokeStyle: "solid", // 선의 스타일입니다
 });
 
 //도착지 마커
 var finishMarker = new kakao.maps.Marker({
-  position: null
+  position: null,
 });
 
 //경로의 길이와 예상 소요 시간을 출력할 인포윈도우
 var infowindow = new kakao.maps.InfoWindow({
   position: null,
-  content: null
+  content: null,
 });
 
 //인포윈도우를 커스텀할 떄 요소들을 초기화할 때 사용할 변수
 var initInfoWindow = null;
 
 //정점의 ID, 위도, 경도 데이터
-var vertexData = [ 
+var vertexData = [
   ["후문", 37.552929, 127.072469],
-  ["2", 37.552120, 127.072817],
+  ["2", 37.55212, 127.072817],
   ["3", 37.552757, 127.073613],
   ["4", 37.552642, 127.073788],
   ["5", 37.552436, 127.073552],
   ["6", 37.551919, 127.073466],
   ["7", 37.552182, 127.073493],
   ["8", 37.552223, 127.073844],
-  ["9", 37.552070, 127.073654],
+  ["9", 37.55207, 127.073654],
   ["10", 37.551944, 127.073823],
   ["11", 37.551887, 127.073128],
   ["12", 37.552106, 127.073995],
   ["13", 37.551784, 127.073648],
-  ["14", 37.551629, 127.073450],
-  ["15", 37.551576, 127.073910],
+  ["14", 37.551629, 127.07345],
+  ["15", 37.551576, 127.07391],
   ["16", 37.551439, 127.073688],
   ["17", 37.551439, 127.074092],
   ["18", 37.551271, 127.073904],
   ["19", 37.551205, 127.073987],
   ["20", 37.551114, 127.074102],
-  ["21", 37.551280, 127.074302],
-  ["22", 37.551400, 127.074457],
+  ["21", 37.55128, 127.074302],
+  ["22", 37.5514, 127.074457],
   ["23", 37.551605, 127.074698],
   ["24", 37.552022, 127.074646],
   ["25", 37.551152, 127.075312],
@@ -58,36 +58,36 @@ var vertexData = [
   ["27", 37.550605, 127.074601],
   ["28", 37.550845, 127.073532],
   ["29", 37.551068, 127.073349],
-  ["30", 37.551370, 127.073768],
+  ["30", 37.55137, 127.073768],
   ["31", 37.550305, 127.072844],
-  ["32", 37.549780, 127.073428],
+  ["32", 37.54978, 127.073428],
   ["33", 37.549319, 127.073471],
   ["34", 37.550303, 127.073309],
   ["35", 37.550464, 127.073514],
-  ["36", 37.550680, 127.073725],
+  ["36", 37.55068, 127.073725],
   ["37", 37.550271, 127.074207],
-  ["38", 37.550080, 127.073585],
+  ["38", 37.55008, 127.073585],
   ["39", 37.550219, 127.073791],
   ["40", 37.550042, 127.074007],
   ["41", 37.549965, 127.073702],
   ["42", 37.550017, 127.073814],
   ["43", 37.549796, 127.074073],
   ["44", 37.549881, 127.074177],
-  ["45", 37.549630, 127.074110],
+  ["45", 37.54963, 127.07411],
   ["46", 37.549619, 127.073987],
   ["47", 37.549707, 127.074334],
-  ["48", 37.549770, 127.074299],
+  ["48", 37.54977, 127.074299],
   ["49", 37.550154, 127.074114],
   ["50", 37.54985263704142, 127.0744738147587],
   ["51", 37.549298, 127.074113],
-  ["쪽문1", 37.549302, 127.073370],
-  ["53", 37.548783, 127.073330],
+  ["쪽문1", 37.549302, 127.07337],
+  ["53", 37.548783, 127.07333],
   ["54", 37.548481, 127.073341],
   ["55", 37.548764, 127.073716],
   ["56", 37.548455, 127.073703],
   ["57", 37.548457, 127.074039],
   ["58", 37.548416, 127.074027],
-  ["59", 37.548760, 127.074068],
+  ["59", 37.54876, 127.074068],
   ["쪽문2", 37.548348, 127.073351],
   ["61", 37.548936, 127.074083],
   ["62", 37.549315, 127.074406],
@@ -114,7 +114,7 @@ var vertexData = [
   ["83", 37.551027, 127.075285],
   ["84", 37.55048734443272, 127.07525670510664],
   // ["85", 37.550834 ,127.075442],
-  ["86", 37.548890, 127.075007],
+  ["86", 37.54889, 127.075007],
   ["87", 37.552038, 127.073313],
   ["88", 37.550889, 127.073574],
   ["89", 37.552378, 127.074155],
@@ -182,22 +182,19 @@ var vertexData = [
 
   ["학술정보원", 37.551526405765, 127.07421236595302],
 
-  ["박물관", 37.551469484927225, 127.0751742317245]
-]
+  ["박물관", 37.551469484927225, 127.0751742317245],
+];
 
 //다익스트라 알고리즘 구현을 위한 클래스들
 //1. 노드
-class Node { 
-
+class Node {
   constructor(val, priority) {
     this.val = val;
     this.priority = priority;
   }
-
 }
 //2. 우선순위 큐
-class PriorityQueue { 
-
+class PriorityQueue {
   constructor() {
     this.values = [];
   }
@@ -255,7 +252,10 @@ class PriorityQueue {
       if (rightChildIdx < length) {
         rightChild = this.values[rightChildIdx];
 
-        if ((swap === null && rightChild.priority < element.priority) || (swap !== null && rightChild.priority < leftChild.priority)) {
+        if (
+          (swap === null && rightChild.priority < element.priority) ||
+          (swap !== null && rightChild.priority < leftChild.priority)
+        ) {
           swap = rightChildIdx;
         }
       }
@@ -265,27 +265,28 @@ class PriorityQueue {
       this.values[idx] = this.values[swap];
       this.values[swap] = element;
       idx = swap;
-
     }
   }
 }
 //3. 가중치 그래프
 class WeightedGraph {
-
   constructor() {
     this.adjacencyList = {}; //인접리스트
   }
 
-  addVertex(vertex) { //점 추가
+  addVertex(vertex) {
+    //점 추가
     if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = []; //인접리스트 행 추가
   }
 
-  addEdge(vertex1, vertex2, weight) { //간선 추가
+  addEdge(vertex1, vertex2, weight) {
+    //간선 추가
     this.adjacencyList[vertex1].push({ node: vertex2, weight });
     this.adjacencyList[vertex2].push({ node: vertex1, weight });
   }
 
-  Dijkstra(start, finish) { //최단경로 알고리즘 : 다익스트라
+  Dijkstra(start, finish) {
+    //최단경로 알고리즘 : 다익스트라
     const nodes = new PriorityQueue();
     const distances = {};
     const previous = {};
@@ -294,11 +295,12 @@ class WeightedGraph {
 
     //2개의 점 사이의 거리 초기화
     for (let vertex in this.adjacencyList) {
-
-      if (vertex === start) { //시점과 동일한 경우
+      if (vertex === start) {
+        //시점과 동일한 경우
         distances[vertex] = 0; //거리를 0으로 업데이트
         nodes.enqueue(vertex, 0); //우선순위 큐에 추가
-      } else { //시점과 동일하지 않은 경우
+      } else {
+        //시점과 동일하지 않은 경우
         distances[vertex] = Infinity; //거리를 무한으로 업데이트
         nodes.enqueue(vertex, Infinity);
       }
@@ -307,14 +309,14 @@ class WeightedGraph {
     }
 
     // as long as there is something to visit
-    while (nodes.values.length) { //우선순위 큐가 비어있지 않은 경우(=방문할 정점이 남아있는 경우)
+    while (nodes.values.length) {
+      //우선순위 큐가 비어있지 않은 경우(=방문할 정점이 남아있는 경우)
 
       smallest = nodes.dequeue().val; //가장 작은 거리을 가지는 우선순위 큐에서 뺴냄
 
       if (smallest === finish) {
-
         shortDis = Math.round(distances[finish]);
-        shortTime = Math.round((shortDis / 1.2 / 60));
+        shortTime = Math.round(shortDis / 1.2 / 60);
 
         console.log(shortDis + "m");
         console.log("도보로 약 " + shortTime + "분이 소요됩니다.");
@@ -354,7 +356,6 @@ class WeightedGraph {
 
 //최단경로를 구하는 함수
 function getShortCut() {
-
   var graph = new WeightedGraph(); //그래프
   var start = document.getElementById("start").value; //출발 건물
   var finish = document.getElementById("finish").value; //도착 건물
@@ -364,35 +365,141 @@ function getShortCut() {
   //그래프 생성
 
   //정점 추가
-  graph.addVertex("후문"); graph.addVertex("2"); graph.addVertex("3"); graph.addVertex("4"); graph.addVertex("5");
-  graph.addVertex("6"); graph.addVertex("7"); graph.addVertex("8"); graph.addVertex("9"); graph.addVertex("10");
-  graph.addVertex("11"); graph.addVertex("12"); graph.addVertex("13"); graph.addVertex("14"); graph.addVertex("15");
-  graph.addVertex("16"); graph.addVertex("17"); graph.addVertex("18"); graph.addVertex("19"); graph.addVertex("20");
-  graph.addVertex("21"); graph.addVertex("22"); graph.addVertex("23"); graph.addVertex("24"); graph.addVertex("25");
-  graph.addVertex("26"); graph.addVertex("27"); graph.addVertex("28"); graph.addVertex("29"); graph.addVertex("30");
-  graph.addVertex("31"); graph.addVertex("32"); graph.addVertex("33"); graph.addVertex("34"); graph.addVertex("35");
-  graph.addVertex("36"); graph.addVertex("37"); graph.addVertex("38"); graph.addVertex("39"); graph.addVertex("40");
-  graph.addVertex("41"); graph.addVertex("42"); graph.addVertex("43"); graph.addVertex("44"); graph.addVertex("45");
-  graph.addVertex("46"); graph.addVertex("47"); graph.addVertex("48"); graph.addVertex("49"); graph.addVertex("50");
-  graph.addVertex("51"); graph.addVertex("쪽문1"); graph.addVertex("53"); graph.addVertex("54"); graph.addVertex("55");
-  graph.addVertex("56"); graph.addVertex("57"); graph.addVertex("58"); graph.addVertex("59"); graph.addVertex("쪽문2");
-  graph.addVertex("61"); graph.addVertex("62"); graph.addVertex("63"); graph.addVertex("64"); graph.addVertex("65");
-  graph.addVertex("66"); graph.addVertex("67"); graph.addVertex("68"); graph.addVertex("69"); graph.addVertex("70");
-  graph.addVertex("71"); graph.addVertex("정문"); graph.addVertex("73"); graph.addVertex("쪽문3"); graph.addVertex("75");
-  graph.addVertex("76"); graph.addVertex("77"); graph.addVertex("78"); graph.addVertex("79"); graph.addVertex("80");
-  graph.addVertex("81"); graph.addVertex("82"); graph.addVertex("83"); graph.addVertex("84");//rgaph.addVertex("85");
-  graph.addVertex("86"); graph.addVertex("87"); graph.addVertex("88"); graph.addVertex("89"); graph.addVertex("90");
-  graph.addVertex("91"); graph.addVertex("92"); graph.addVertex("93"); graph.addVertex("94");
-  graph.addVertex("대양AI센터"); graph.addVertex("대양AI센터1"); graph.addVertex("대양AI센터2"); graph.addVertex("대양AI센터3"); graph.addVertex("대양AI센터4");
-  graph.addVertex("모차르트홀"); graph.addVertex("집현관"); graph.addVertex("집현관1"); graph.addVertex("집현관2");
-  graph.addVertex("집현관3"); graph.addVertex("학생회관1"); graph.addVertex("학생회관2"); graph.addVertex("학생회관");
-  graph.addVertex("세종관"); graph.addVertex("세종관1"); graph.addVertex("세종관2"); graph.addVertex("군자관");
-  graph.addVertex("군자관1"); graph.addVertex("군자관2"); graph.addVertex("광개토관"); graph.addVertex("광개토관1");
-  graph.addVertex("광개토관2"); graph.addVertex("이당관"); graph.addVertex("진관홀"); graph.addVertex("용덕관");
-  graph.addVertex("용덕관1"); graph.addVertex("애지헌"); graph.addVertex("영실관");
-  graph.addVertex("충무관"); graph.addVertex("충무관1"); graph.addVertex("충무관2"); graph.addVertex("다산관"); graph.addVertex("다산관1"); graph.addVertex("다산관2");
-  graph.addVertex("다산관3"); graph.addVertex("율곡관"); graph.addVertex("우정당"); graph.addVertex("우정당1"); graph.addVertex("우정당2"); graph.addVertex("학술정보원");
-  graph.addVertex("박물관"); graph.addVertex("대양홀");
+  graph.addVertex("후문");
+  graph.addVertex("2");
+  graph.addVertex("3");
+  graph.addVertex("4");
+  graph.addVertex("5");
+  graph.addVertex("6");
+  graph.addVertex("7");
+  graph.addVertex("8");
+  graph.addVertex("9");
+  graph.addVertex("10");
+  graph.addVertex("11");
+  graph.addVertex("12");
+  graph.addVertex("13");
+  graph.addVertex("14");
+  graph.addVertex("15");
+  graph.addVertex("16");
+  graph.addVertex("17");
+  graph.addVertex("18");
+  graph.addVertex("19");
+  graph.addVertex("20");
+  graph.addVertex("21");
+  graph.addVertex("22");
+  graph.addVertex("23");
+  graph.addVertex("24");
+  graph.addVertex("25");
+  graph.addVertex("26");
+  graph.addVertex("27");
+  graph.addVertex("28");
+  graph.addVertex("29");
+  graph.addVertex("30");
+  graph.addVertex("31");
+  graph.addVertex("32");
+  graph.addVertex("33");
+  graph.addVertex("34");
+  graph.addVertex("35");
+  graph.addVertex("36");
+  graph.addVertex("37");
+  graph.addVertex("38");
+  graph.addVertex("39");
+  graph.addVertex("40");
+  graph.addVertex("41");
+  graph.addVertex("42");
+  graph.addVertex("43");
+  graph.addVertex("44");
+  graph.addVertex("45");
+  graph.addVertex("46");
+  graph.addVertex("47");
+  graph.addVertex("48");
+  graph.addVertex("49");
+  graph.addVertex("50");
+  graph.addVertex("51");
+  graph.addVertex("쪽문1");
+  graph.addVertex("53");
+  graph.addVertex("54");
+  graph.addVertex("55");
+  graph.addVertex("56");
+  graph.addVertex("57");
+  graph.addVertex("58");
+  graph.addVertex("59");
+  graph.addVertex("쪽문2");
+  graph.addVertex("61");
+  graph.addVertex("62");
+  graph.addVertex("63");
+  graph.addVertex("64");
+  graph.addVertex("65");
+  graph.addVertex("66");
+  graph.addVertex("67");
+  graph.addVertex("68");
+  graph.addVertex("69");
+  graph.addVertex("70");
+  graph.addVertex("71");
+  graph.addVertex("정문");
+  graph.addVertex("73");
+  graph.addVertex("쪽문3");
+  graph.addVertex("75");
+  graph.addVertex("76");
+  graph.addVertex("77");
+  graph.addVertex("78");
+  graph.addVertex("79");
+  graph.addVertex("80");
+  graph.addVertex("81");
+  graph.addVertex("82");
+  graph.addVertex("83");
+  graph.addVertex("84"); //rgaph.addVertex("85");
+  graph.addVertex("86");
+  graph.addVertex("87");
+  graph.addVertex("88");
+  graph.addVertex("89");
+  graph.addVertex("90");
+  graph.addVertex("91");
+  graph.addVertex("92");
+  graph.addVertex("93");
+  graph.addVertex("94");
+  graph.addVertex("대양AI센터");
+  graph.addVertex("대양AI센터1");
+  graph.addVertex("대양AI센터2");
+  graph.addVertex("대양AI센터3");
+  graph.addVertex("대양AI센터4");
+  graph.addVertex("모차르트홀");
+  graph.addVertex("집현관");
+  graph.addVertex("집현관1");
+  graph.addVertex("집현관2");
+  graph.addVertex("집현관3");
+  graph.addVertex("학생회관1");
+  graph.addVertex("학생회관2");
+  graph.addVertex("학생회관");
+  graph.addVertex("세종관");
+  graph.addVertex("세종관1");
+  graph.addVertex("세종관2");
+  graph.addVertex("군자관");
+  graph.addVertex("군자관1");
+  graph.addVertex("군자관2");
+  graph.addVertex("광개토관");
+  graph.addVertex("광개토관1");
+  graph.addVertex("광개토관2");
+  graph.addVertex("이당관");
+  graph.addVertex("진관홀");
+  graph.addVertex("용덕관");
+  graph.addVertex("용덕관1");
+  graph.addVertex("애지헌");
+  graph.addVertex("영실관");
+  graph.addVertex("충무관");
+  graph.addVertex("충무관1");
+  graph.addVertex("충무관2");
+  graph.addVertex("다산관");
+  graph.addVertex("다산관1");
+  graph.addVertex("다산관2");
+  graph.addVertex("다산관3");
+  graph.addVertex("율곡관");
+  graph.addVertex("우정당");
+  graph.addVertex("우정당1");
+  graph.addVertex("우정당2");
+  graph.addVertex("학술정보원");
+  graph.addVertex("박물관");
+  graph.addVertex("대양홀");
 
   //간선 추가
   graph.addEdge("대양AI센터", "대양AI센터1", 24);
@@ -458,7 +565,7 @@ function getShortCut() {
   graph.addEdge("19", "88", 47.65);
   graph.addEdge("88", "28", 7.53);
   graph.addEdge("29", "88", 28.43);
-  graph.addEdge("18", "19", 11.20);
+  graph.addEdge("18", "19", 11.2);
   graph.addEdge("19", "20", 14.32);
   graph.addEdge("20", "21", 25.36);
   graph.addEdge("20", "27", 71.32);
@@ -469,58 +576,58 @@ function getShortCut() {
   //graph.addEdge("23", "25", 72.27);
   graph.addEdge("25", "26", 39.09);
   graph.addEdge("26", "80", 17.77);
-  graph.addEdge("80", "27", 28.90);
+  graph.addEdge("80", "27", 28.9);
   graph.addEdge("80", "81", 4.26);
   graph.addEdge("27", "37", 48.64);
-  graph.addEdge("28", "31", 85.70);
+  graph.addEdge("28", "31", 85.7);
   graph.addEdge("28", "36", 25.02);
   graph.addEdge("31", "32", 76.48);
   graph.addEdge("32", "33", 52.58);
   graph.addEdge("32", "41", 31.37);
   graph.addEdge("36", "35", 30.38);
-  graph.addEdge("36", "37", 40.00);
+  graph.addEdge("36", "37", 40.0);
   graph.addEdge("35", "39", 36.57);
   graph.addEdge("35", "34", 25.96);
-  graph.addEdge("34", "38", 36.10);
+  graph.addEdge("34", "38", 36.1);
   graph.addEdge("38", "39", 24.28);
   graph.addEdge("38", "41", 17.09);
   graph.addEdge("41", "42", 10.39);
   graph.addEdge("39", "40", 27.06);
   graph.addEdge("40", "49", 16.52);
   graph.addEdge("40", "44", 22.83);
-  graph.addEdge("42", "43", 33.00);
+  graph.addEdge("42", "43", 33.0);
   graph.addEdge("49", "37", 14.59);
   graph.addEdge("49", "50", 43.66);
   graph.addEdge("44", "48", 18.04);
-  graph.addEdge("44", "43", 12.50);
+  graph.addEdge("44", "43", 12.5);
   //graph.addEdge("37", "63", 72.95);
-  graph.addEdge("43", "45", 19.30);
+  graph.addEdge("43", "45", 19.3);
   graph.addEdge("45", "46", 11.12);
   graph.addEdge("45", "51", 35.74);
   graph.addEdge("45", "47", 20.56);
   graph.addEdge("47", "48", 5.76);
   graph.addEdge("47", "65", 30.35);
   graph.addEdge("47", "62", 44.38);
-  graph.addEdge("48", "50", 15.90);
+  graph.addEdge("48", "50", 15.9);
   graph.addEdge("50", "65", 28.22);
   graph.addEdge("65", "66", 4.63);
   graph.addEdge("65", "64", 21.62);
-  graph.addEdge("65", "68", 31.90);
+  graph.addEdge("65", "68", 31.9);
   graph.addEdge("66", "69", 31.63);
   graph.addEdge("69", "70", 40.94);
-  graph.addEdge("62", "51", 26.60);
+  graph.addEdge("62", "51", 26.6);
   graph.addEdge("62", "70", 34.34);
   graph.addEdge("64", "63", 7.64);
   graph.addEdge("64", "67", 8.11);
   //graph.addEdge("67", "63", ); 없는거 같음
   graph.addEdge("80", "81", 4.26);
   graph.addEdge("67", "73", 65);
-  graph.addEdge("73", "84", 26.50);
+  graph.addEdge("73", "84", 26.5);
   graph.addEdge("73", "쪽문3", 24.41);
   //graph.addEdge("84", "85",5.41 );
-  graph.addEdge("84", "대양AI센터1", 5.41)
+  graph.addEdge("84", "대양AI센터1", 5.41);
   graph.addEdge("84", "81", 27.96);
-  graph.addEdge("82", "83", 4.00);
+  graph.addEdge("82", "83", 4.0);
   graph.addEdge("81", "82", 11.11);
   graph.addEdge("51", "61", 40.55);
   graph.addEdge("51", "33", 57.08);
@@ -529,7 +636,7 @@ function getShortCut() {
   graph.addEdge("53", "93", 8);
   graph.addEdge("54", "93", 31);
   graph.addEdge("55", "93", 19);
-  graph.addEdge("55", "56", 32.00);
+  graph.addEdge("55", "56", 32.0);
   graph.addEdge("55", "59", 31.99);
   graph.addEdge("54", "56", 29.94);
   graph.addEdge("56", "57", 28.69);
@@ -547,8 +654,8 @@ function getShortCut() {
   graph.addEdge("79", "78", 7.49);
   graph.addEdge("78", "77", 25.79);
   graph.addEdge("76", "75", 25.84);
-  graph.addEdge("75", "쪽문3", 15.00);
-  graph.addEdge("75", "77", 82.00);
+  graph.addEdge("75", "쪽문3", 15.0);
+  graph.addEdge("75", "77", 82.0);
   graph.addEdge("90", "70", 11);
   graph.addEdge("충무관1", "5", 27);
   graph.addEdge("충무관1", "12", 29);
@@ -603,11 +710,14 @@ function getShortCut() {
     console.log(path[i]);
 
     for (j = 0; j < vertexData.length; j++) {
-
-      if (vertexData[j][0] == path[i]) {//최단 경로를 이루는 정점의 좌표 저장
-        linePath.push(new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]));
+      if (vertexData[j][0] == path[i]) {
+        //최단 경로를 이루는 정점의 좌표 저장
+        linePath.push(
+          new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2])
+        );
       }
-      if (vertexData[j][0] == finish) { //종점 좌표
+      if (vertexData[j][0] == finish) {
+        //종점 좌표
         finishPos = new kakao.maps.LatLng(vertexData[j][1], vertexData[j][2]);
       }
     }
@@ -616,7 +726,7 @@ function getShortCut() {
   //최단경로
   polyline.setMap(null); //이전에 그려져있던 경로 삭제
   polyline.setPath(linePath);
-  polyline.setMap(map);  //지도에 경로 표시
+  polyline.setMap(map); //지도에 경로 표시
 
   //도착지 마커
   finishMarker.setMap(null); //이전에 표시되어 있던 마커 삭제
@@ -626,34 +736,42 @@ function getShortCut() {
   // 인포윈도우
   infowindow.close(); //이전 검색기록의 인포윈도우 삭제
   infowindow.setPosition(finishPos);
-  infowindow.setContent("<div class='path_info'>"+shortDis + "m<br>" + "도보 약 " + shortTime + "분</div>");
+  infowindow.setContent(
+    "<div class='path_info'>" +
+      shortDis +
+      "m<br>" +
+      "도보 약 " +
+      shortTime +
+      "분</div>"
+  );
   infowindow.open(map, finishMarker); //도착지 마커 위에 표시
 
   //인포윈도위 기본 디자인 초기화
-  initInfoWindow = document.querySelectorAll('.path_info');
-  initInfoWindow.forEach(function(e) {
-      var w = e.offsetWidth + 10;
-      var ml = w/2;
-      e.parentElement.style.top = "5px";
-      e.parentElement.style.left = "50%";
-      e.parentElement.style.marginLeft = -ml+"px";
-      e.parentElement.style.width = w+"px";
-      e.parentElement.previousSibling.style.display = "none";
-      e.parentElement.parentElement.style.border = "0px";
-      e.parentElement.parentElement.style.background = "unset";
+  initInfoWindow = document.querySelectorAll(".path_info");
+  initInfoWindow.forEach(function (e) {
+    var w = e.offsetWidth + 10;
+    var ml = w / 2;
+    e.parentElement.style.top = "5px";
+    e.parentElement.style.left = "50%";
+    e.parentElement.style.marginLeft = -ml + "px";
+    e.parentElement.style.width = w + "px";
+    e.parentElement.previousSibling.style.display = "none";
+    e.parentElement.parentElement.style.border = "0px";
+    e.parentElement.parentElement.style.background = "unset";
   });
-
 }
 
 //사용자의 기기가 모바일인지 아닌지
 function isMobile() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
 }
 
 //사용자가 현재위치 추적 서비스를 원하는지 아닌지
 function isChecked() {
   // 1. checkbox element를 찾습니다.
-  const checkbox = document.getElementById('wantNav');
+  const checkbox = document.getElementById("wantNav");
 
   // 2. checked 속성을 체크한 후 값 반환
   return checkbox.checked;
@@ -661,65 +779,69 @@ function isChecked() {
 
 //주기적인 함수의 실행을 위한 함수
 function startClock() {
-
   //사용자의 현재위치를 추적하는 함수
   function getLocation() {
     let lat, long;
 
-    if (prevUser != null) { //이전에 표시했던 사용자 위치가 있다면
+    if (prevUser != null) {
+      //이전에 표시했던 사용자 위치가 있다면
       prevUser.setMap(null); //지도에서 지워줌
     }
 
-    if (isMobile() && isChecked()) { // 모바일 기기이며 사용자가 위치 추적 서비스를 원하는 경우
+    if (isMobile() && isChecked()) {
+      // 모바일 기기이며 사용자가 위치 추적 서비스를 원하는 경우
 
-      navigator.geolocation.getCurrentPosition(function (position) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          lat = position.coords.latitude;
+          long = position.coords.longitude;
 
-        lat = position.coords.latitude;
-        long = position.coords.longitude;
+          console.log(lat, long); //주기적으로 좌표가 측장되는지 확인
 
-        console.log(lat, long); //주기적으로 좌표가 측장되는지 확인
+          userPos = new kakao.maps.LatLng(lat, long);
 
-        userPos = new kakao.maps.LatLng(lat, long); 
+          if (prevUser != null) {
+            //이전에 표시했던 사용자 위치가 있다면
+            prevUser.setMap(null); //지도에서 지워줌
+          }
 
-        if (prevUser != null) { //이전에 표시했던 사용자 위치가 있다면
-          prevUser.setMap(null); //지도에서 지워줌
+          // 지도에 사용자 마커 생성
+          var user = new kakao.maps.Circle({
+            center: userPos, // 원의 중심좌표
+            radius: 5, // 미터 단위의 원의 반지름
+            strokeWeight: 4, // 선의 두께
+            strokeColor: "#ffffff", // 선의 색깔
+            strokeOpacity: 1, // 선의 불투명도
+            strokeStyle: "solid", // 선의 스타일
+            fillColor: "#DC143C", // 채우기 색깔
+            fillOpacity: 0.7, // 채우기 불투명도
+          });
+          user.setMap(map); //지도에 사용자 마커로 사용할 원 표시
+          prevUser = user; //이후에 지울 수 있도록 사용자 마커의 정보를 prevUser로 저장
+
+          map.panTo(userPos); //지도 중심을 사용자 위치로 이동
+        },
+        function (error) {
+          console.error(error);
+        },
+        {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
         }
-
-        // 지도에 사용자 마커 생성
-        var user = new kakao.maps.Circle({
-          center: userPos,  // 원의 중심좌표 
-          radius: 5, // 미터 단위의 원의 반지름 
-          strokeWeight: 2, // 선의 두께
-          strokeColor: '#ffffff', // 선의 색깔
-          strokeOpacity: 1, // 선의 불투명도
-          strokeStyle: 'solid', // 선의 스타일
-          fillColor: '#DC143C', // 채우기 색깔
-          fillOpacity: 1  // 채우기 불투명도 
-        });
-        user.setMap(map); //지도에 사용자 마커로 사용할 원 표시
-        prevUser = user; //이후에 지울 수 있도록 사용자 마커의 정보를 prevUser로 저장
-
-        map.panTo(userPos); //지도 중심을 사용자 위치로 이동
-
-      }, function (error) {
-        console.error(error);
-      }, {
-        enableHighAccuracy: false,
-        maximumAge: 0,
-        timeout: Infinity
-      });
+      );
     }
   }
 
-  timer = setInterval(getLocation, 2000); //주기적으로 실행할 함수를 지정 
+  timer = setInterval(getLocation, 2000); //주기적으로 실행할 함수를 지정
 }
 
 function stopClock() {
   clearInterval(timer); //타이머 삭제
 }
 
-
-function mainFunc() { //html의 검색 버튼과 이어줄 함수
+function mainFunc() {
+  //html의 검색 버튼과 이어줄 함수
   getShortCut(); //최단경로를 구하고
   startClock(); //타이머 시작
 }
