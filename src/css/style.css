@@ -81,6 +81,10 @@ body {
     line-height: 30px;
     cursor: pointer;
   }
+  .buildings {
+    width: 60%;
+    margin: 0 auto; /* 수평 가운데 정렬 */
+  }
   .custom_typecontrol .btn {
     background: #fff;
     background: linear-gradient(#fff, #e6e6e6);
