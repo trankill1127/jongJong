@@ -350,7 +350,8 @@ function stopClock() {
 }
 
 function mainFunc() {
-  //html의 검색 버튼과 이어줄 함수
-  getShortCut(); //최단경로를 구하고
-  startClock(); //타이머 시작
+  // 최단 경로를 구하고
+  getShortCut();
+  // 타이머 시작
+  startClock();
 }

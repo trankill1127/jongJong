@@ -16,12 +16,16 @@
   },
   "homepage": "https://github.com/trankill1127/jongJong#READEME.md",
   "dependencies": {
+<<<<<<< HEAD
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
+=======
+    "express": "^4.17.1"
+>>>>>>> 0ce40d2753b75055c2b0d1041eea31b5f238a725
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
