@@ -7,7 +7,7 @@ var mapContainer = document.getElementById("map"), // 지도를 표시할 div
 // 지도를 표시할 div와  지도 옵션으로  지도를 생성
 var map = new kakao.maps.Map(mapContainer, mapOption);
 // 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
-// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
+
 function setMapType(maptype) {
   var roadmapControl = document.getElementById("btnRoadmap");
   var skyviewControl = document.getElementById("btnSkyview");
