@@ -19,9 +19,13 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   </head>
-  <body style="background-color: #dc143c">
+  <body>
+    <div class="bg-video">
+      <video class="bg-video__content" autoplay muted loop>
+        <source src="../image/walking2.mp4" type="video/mp4" />
+      </video>
+    </div>
     <header>
-      <img class="logoImg" src="image/walk.gif" />
       <div class="inner">
         <div class="title">
           <div class="logo">
@@ -29,119 +33,118 @@
               >종종</a
             >
           </div>
-          <div class="subLogo">세종대 최적경로 안내 서비스</div>
+
+          <div class="waviy">
+            <span style="--i: 1">세</span>
+            <span style="--i: 2">종</span>
+            <span style="--i: 3">대</span>
+            <span style="--i: 4">최</span>
+            <span style="--i: 5">적</span>
+            <span style="--i: 6">경</span>
+            <span style="--i: 7">로</span>
+            <span style="--i: 8">안</span>
+            <span style="--i: 9">내</span>
+            <span style="--i: 10">서</span>
+            <span style="--i: 11">비</span>
+            <span style="--i: 12">스</span>
+          </div>
         </div>
       </div>
     </header>
-    <section>
-      <div class="map_wrap">
-        <div
-          id="map"
-          style="
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-          "
-        ></div>
-        <div class="custom_typecontrol radius_border">
-          <span
-            id="btnRoadmap"
-            class="selected_btn"
-            onclick="setMapType('roadmap')"
-            >지도</span
-          >
-          <span id="btnSkyview" class="btn" onclick="setMapType('skyview')"
-            >스카이뷰</span
-          >
-        </div>
-        <div class="custom_zoomcontrol radius_border">
-          <div onclick="zoomIn()">
-            <img src="./image/ico_plus.png" alt="" />
+    <div class="service-section">
+      <section>
+        <div class="map_wrap">
+          <div id="map"></div>
+          <div class="custom_typecontrol radius_border">
+            <span
+              id="btnRoadmap"
+              class="selected_btn"
+              onclick="setMapType('roadmap')"
+              >지도</span
+            >
+            <span id="btnSkyview" class="btn" onclick="setMapType('skyview')"
+              >스카이뷰</span
+            >
           </div>
-          <div onclick="zoomOut()">
-            <img src="./image/ico_minus.png" alt="" />
+          <div class="custom_zoomcontrol radius_border">
+            <div onclick="zoomIn()">
+              <img src="./image/ico_plus.png" alt="" />
+            </div>
+            <div onclick="zoomOut()">
+              <img src="./image/ico_minus.png" alt="" />
+            </div>
           </div>
         </div>
-      </div>
-      <script
-        type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51be20d68b5d57bc1492c51934cef078"
-      ></script>
-      <script src="/client/map.js"></script>
-    </section>
-    <section>
-      <div class="search_wrap">
-        <form class="search_form">
-          <div class="search_text">
-            <input
-              id="start"
-              type="text"
-              placeholder="출발지를 입력하세요"
-            /><br />
-            <input
-              id="finish"
-              type="text"
-              placeholder="도착지를 입력하세요"
-            /><br />
+      </section>
+      <div class="submit-section">
+        <div class="caution">
+          출발지와 도착지의 명칭을 정확하게 선택해주세요.
+        </div>
+        <div class="click-section">
+          <table class="buildings">
+            <tr>
+              <td>정문</td>
+              <td>후문</td>
+              <td>쪽문1</td>
+              <td>쪽문2</td>
+              <td>쪽문3</td>
+            </tr>
+            <tr>
+              <td>모차르트홀</td>
+              <td>대양홀</td>
+              <td>집현관</td>
+              <td>학생회관</td>
+              <td>세종관</td>
+            </tr>
+            <tr>
+              <td>군자관</td>
+              <td>광개토관</td>
+              <td>이당관</td>
+              <td>진관홀</td>
+              <td>용덕관</td>
+            </tr>
+            <tr>
+              <td>애지헌</td>
+              <td>영실관</td>
+              <td>충무관</td>
+              <td>다산관</td>
+              <td>율곡관</td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td>우정당</td>
+              <td>학술정보원</td>
+              <td>박물관</td>
+              <td>대양AI센터</td>
+            </tr>
+          </table>
+          <div class="search_wrap">
+            <form class="search_form">
+              <div class="search_text">
+                <input
+                  id="start"
+                  type="text"
+                  placeholder="출발지를 입력하세요"
+                /><br />
+                <input
+                  id="finish"
+                  type="text"
+                  placeholder="도착지를 입력하세요"
+                /><br />
+              </div>
+              <button
+                id="search_button"
+                class="btn btn-lg btn-light"
+                type="button"
+                onclick="mainFunc();resetColorsAndInputs();"
+              >
+                검색
+              </button>
+            </form>
           </div>
-          <button
-            id="search_button"
-            class="btn btn-lg btn-light"
-            type="button"
-            onclick="mainFunc()"
-          >
-            검색
-          </button>
-        </form>
+        </div>
       </div>
-    </section>
-    <section>
-      <div class="caution_1">
-        1. 출발지와 도착지의 명칭을 정확하게 입력해주셔야 합니다.
-      </div>
-      <table class="buildings">
-        <tr class="align-center" bgcolor="white">
-          <td>정문</td>
-          <td>후문</td>
-          <td>쪽문1</td>
-          <td>쪽문2</td>
-        </tr>
-        <tr class="align-center" bgcolor="white">
-          <td>쪽문3</td>
-          <td>모차르트홀</td>
-          <td>대양홀</td>
-          <td>집현관</td>
-        </tr>
-        <tr class="align-center" bgcolor="white">
-          <td>학생회관</td>
-          <td>세종관</td>
-          <td>군자관</td>
-          <td>광개토관</td>
-        </tr>
-        <tr class="align-center" bgcolor="white">
-          <td>이당관</td>
-          <td>진관홀</td>
-          <td>용덕관</td>
-          <td>애지헌</td>
-        </tr>
-        <tr class="align-center" bgcolor="white">
-          <td>영실관</td>
-          <td>충무관</td>
-          <td>다산관</td>
-          <td>율곡관</td>
-        </tr>
-        <tr class="align-center" bgcolor="white">
-          <td>우정당</td>
-          <td>학술정보원</td>
-          <td>박물관</td>
-          <td>대양AI센터</td>
-        </tr>
-      </table>
-      <div class="caution_2">
-        2. 웹 브라우저로 이용하시는 경우 위치 추적 서비스를 지원하지 않습니다.
-      </div>
-    </section>
+    </div>
     <footer>
       <div class="inner">
         <div class="copyright">
@@ -151,6 +154,11 @@
         </div>
       </div>
     </footer>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51be20d68b5d57bc1492c51934cef078"
+    ></script>
     <script src="/client/mapping.js"></script>
+    <script src="/client/map.js"></script>
   </body>
 </html>
