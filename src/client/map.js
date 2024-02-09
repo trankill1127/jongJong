@@ -31,3 +31,58 @@ function zoomIn() {
 function zoomOut() {
   map.setLevel(map.getLevel() + 1);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  var isStart = true;
+
+  var tds = document.querySelectorAll("td");
+
+  tds.forEach(function (td) {
+    td.addEventListener("click", function () {
+      var text = td.textContent.trim();
+      if (isStart) {
+        document.getElementById("start").value = text;
+      } else {
+        document.getElementById("finish").value = text;
+      }
+
+      isStart = !isStart;
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // 첫 번째 td 요소를 start로 사용할 것임을 나타내는 변수
+  var isStart = true;
+
+  // 모든 td 요소 가져오기
+  var tds = document.querySelectorAll("td");
+
+  // 각 td 요소에 클릭 이벤트 추가
+  tds.forEach(function (td) {
+    td.addEventListener("click", function () {
+      // 클릭된 td 요소의 텍스트 가져오기
+      var text = td.textContent.trim();
+
+      // isStart 변수에 따라서 start 또는 finish input 요소에 텍스트 설정하기
+      if (isStart) {
+        document.getElementById("start").value = text;
+      } else {
+        document.getElementById("finish").value = text;
+      }
+
+      // isStart 변수를 토글하기
+      isStart = !isStart;
+    });
+  });
+
+  // 검색 버튼 가져오기
+  var searchButton = document.getElementById("search_button");
+
+  // 검색 버튼에 클릭 이벤트 추가
+  searchButton.addEventListener("click", function () {
+    // 출발지와 도착지 입력란의 값을 초기화
+    document.getElementById("start").value = "";
+    document.getElementById("finish").value = "";
+  });
+});

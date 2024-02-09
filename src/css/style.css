@@ -306,3 +306,11 @@ a {
 @media only screen and (min-width: 1200px) {
   /*가로가 1200px 보다 커지면 더 이상 늘어나지 X*/
 }
+
+td {
+  transition: background-color 1s ease-out 100ms;
+}
+td:hover {
+  background-color: #ff1493;
+  cursor: pointer;
+}
