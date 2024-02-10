@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>종종</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="icon" href="./image/white_logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="bg-video">
+      <video class="bg-video__content" autoplay muted loop>
+        <source src="./image/walking2.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <header>
+      <div class="inner">
+        <div class="title">
+          <div class="logo">
+            <a href="https://trankill1127.github.io/jongJong/" target="_self"
+              >종종</a
+            >
+          </div>
+
+          <div class="waviy">
+            <span style="--i: 1">세</span>
+            <span style="--i: 2">종</span>
+            <span style="--i: 3">대</span>
+            <span style="--i: 4">최</span>
+            <span style="--i: 5">적</span>
+            <span style="--i: 6">경</span>
+            <span style="--i: 7">로</span>
+            <span style="--i: 8">안</span>
+            <span style="--i: 9">내</span>
+            <span style="--i: 10">서</span>
+            <span style="--i: 11">비</span>
+            <span style="--i: 12">스</span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="service-section">
+      <section>
+        <div class="map_wrap">
+          <div id="map"></div>
+          <div class="custom_typecontrol radius_border">
+            <span
+              id="btnRoadmap"
+              class="selected_btn"
+              onclick="setMapType('roadmap')"
+              >지도</span
+            >
+            <span id="btnSkyview" class="btn" onclick="setMapType('skyview')"
+              >스카이뷰</span
+            >
+          </div>
+          <div class="custom_zoomcontrol radius_border">
+            <div onclick="zoomIn()">
+              <img src="./image/ico_plus.png" alt="" />
+            </div>
+            <div onclick="zoomOut()">
+              <img src="./image/ico_minus.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="submit-section">
+        <div class="caution">
+          출발지와 도착지의 명칭을 정확하게 선택해주세요.
+        </div>
+        <div class="click-section">
+          <table class="buildings">
+            <tr>
+              <td>정문</td>
+              <td>후문</td>
+              <td>쪽문1</td>
+              <td>쪽문2</td>
+              <td>쪽문3</td>
+            </tr>
+            <tr>
+              <td>모차르트홀</td>
+              <td>대양홀</td>
+              <td>집현관</td>
+              <td>학생회관</td>
+              <td>세종관</td>
+            </tr>
+            <tr>
+              <td>군자관</td>
+              <td>광개토관</td>
+              <td>이당관</td>
+              <td>진관홀</td>
+              <td>용덕관</td>
+            </tr>
+            <tr>
+              <td>애지헌</td>
+              <td>영실관</td>
+              <td>충무관</td>
+              <td>다산관</td>
+              <td>율곡관</td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td>우정당</td>
+              <td>학술정보원</td>
+              <td>박물관</td>
+              <td>대양AI센터</td>
+            </tr>
+          </table>
+          <div class="search_wrap">
+            <form class="search_form">
+              <div class="search_text">
+                <input
+                  id="start"
+                  type="text"
+                  placeholder="출발지를 입력하세요"
+                /><br />
+                <input
+                  id="finish"
+                  type="text"
+                  placeholder="도착지를 입력하세요"
+                /><br />
+              </div>
+              <button
+                id="search_button"
+                class="btn btn-lg btn-light"
+                type="button"
+                onclick="mainFunc();resetColorsAndInputs();"
+              >
+                검색
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="inner">
+        <div class="copyright">
+          <a href="https://github.com/trankill1127/jongJong" target="_blank"
+            >© 2024. 등차수열 all rights reserved.</a
+          >
+        </div>
+      </div>
+    </footer>
+    <div class="loader"></div>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51be20d68b5d57bc1492c51934cef078"
+    ></script>
+    <script src="./client/mapping.js"></script>
+    <script src="./client/map.js"></script>
+  </body>
+</html>
