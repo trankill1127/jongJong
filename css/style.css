@@ -1,0 +1,448 @@
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap");
+:root {
+  --font-color: #333; /* 글자 색상 변수 정의 */
+  --button-hover-color: #ff1493; /* 버튼 호버 색상 변수 정의 */
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 1em 0 1em 0;
+}
+
+.service-section {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.inner {
+  padding: 0.8em 0;
+  display: flex;
+
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.logoImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 150px;
+}
+.logo a {
+  font-size: 48px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+  transform: perspective(100px) rotateX(10deg); /* 입체 효과 */
+}
+.title {
+  display: flex;
+  flex-direction: column;
+}
+
+.subLogo {
+  color: var(--font-color);
+  font-size: 15px;
+  margin-top: 30px;
+}
+.map_wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50px;
+  width: 500px;
+  height: 500px;
+  box-shadow: 3px 3px 3px 3px gray;
+}
+.radius_border {
+  border: 1px solid #919191;
+  border-radius: 5px;
+}
+.custom_typecontrol {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  overflow: hidden;
+
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  font-size: 12px;
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+}
+.custom_typecontrol span {
+  display: block;
+  width: 65px;
+  height: 30px;
+  float: left;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+.buildings {
+  width: 60%;
+  margin: 0 auto; /* 수평 가운데 정렬 */
+}
+.custom_typecontrol .btn {
+  background: #fff;
+  background: linear-gradient(#fff, #e6e6e6);
+}
+.custom_typecontrol .btn:hover {
+  background: #f5f5f5;
+  background: linear-gradient(#f5f5f5, #e3e3e3);
+}
+.custom_typecontrol .btn:active {
+  background: #e6e6e6;
+  background: linear-gradient(#e6e6e6, #fff);
+}
+.custom_typecontrol .selected_btn {
+  color: #fff;
+  background: #425470;
+  background: linear-gradient(#425470, #5b6d8a);
+}
+.custom_typecontrol .selected_btn:hover {
+  color: #fff;
+}
+.custom_zoomcontrol {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  width: 36px;
+  height: 80px;
+  overflow: hidden;
+  z-index: 1;
+  background-color: #f5f5f5;
+}
+.custom_zoomcontrol div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 40px;
+
+  cursor: pointer;
+}
+.custom_zoomcontrol div img {
+  width: 15px;
+  border: none;
+}
+.custom_zoomcontrol div:first-child {
+  border-bottom: 1px solid #bfbfbf;
+}
+.search_wrap {
+  width: 100%;
+}
+.search_form {
+  display: flex;
+  justify-content: center;
+}
+
+.caution {
+  margin-bottom: 30px;
+  width: 100%;
+  color: var(--font-color);
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+  margin: auto;
+  padding: 0 0 1em 0;
+}
+.checkNav {
+  color: var(--font-color);
+  padding: 1em 0 0 0;
+  text-align: center;
+  justify-content: center;
+}
+
+table {
+  width: 60%;
+}
+td {
+  width: 25%;
+}
+
+footer {
+  display: block;
+  margin: auto;
+}
+.inner {
+  width: 100%;
+  height: 20%;
+}
+.copyright {
+  color: var(--font-color);
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: var(--font-color);
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.75;
+}
+
+.bg-video__content {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.waviy {
+  position: relative;
+  margin-top: 30px;
+  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+  font-size: 30px;
+}
+.waviy span {
+  font-family: "Alfa Slab One", cursive;
+  position: relative;
+  display: inline-block;
+  color: var(--font-color);
+  font-size: 500;
+  text-transform: uppercase;
+  animation: waviy 1.5s infinite;
+  animation-delay: calc(0.1s * var(--i));
+}
+@keyframes waviy {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-20px);
+  }
+}
+header {
+  display: block;
+  margin: auto;
+  padding: 1em 0 1em 0;
+}
+.inner {
+  padding: 0.8em 0;
+  text-align: center;
+  justify-content: center;
+}
+.logoImg {
+  width: 2.5em;
+  height: 2.5em;
+}
+.logo {
+  color: var(--font-color);
+  font-size: 30px;
+}
+.subLogo {
+  color: var(--font-color);
+  font-size: 15px;
+  padding: 0.2em 0 0 0;
+}
+
+.mapContainer {
+  width: 100%;
+  height: 460px;
+}
+#map {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.path_info {
+  display: block;
+  background: #657186e3;
+  color: var(--font-color);
+  text-align: center;
+  border-radius: 4px;
+  width: 6em;
+  line-height: 2; /* 줄 간격을 2배로 늘림 */
+}
+.search_wrap {
+  width: 100%;
+  margin: 20px 0;
+}
+.search_form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.search_text {
+  display: table-row;
+}
+
+input::placeholder {
+  color: #333;
+}
+.search_text input {
+  display: table-cell;
+  border: 1px solid #ddd;
+  color: #333;
+
+  background-color: transparent;
+  padding: 15px;
+}
+
+#search_button {
+  display: table-cell;
+  border: 1px solid #ddd;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 5px 30px;
+  transition: background-color 1s ease-out 100ms;
+  text-align: center;
+  cursor: pointer;
+}
+
+#search_button:hover {
+  background-color: #ff1493;
+}
+.checkNav {
+  color: #333;
+  padding: 1em 0 0 0;
+
+  text-align: center;
+  justify-content: center;
+}
+
+footer {
+  display: block;
+  margin: auto;
+}
+.inner {
+  width: 100%;
+  height: 20%;
+  margin-top: 50px;
+}
+.copyright {
+  color: #333;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+td {
+  transition: background-color 1s ease-out 100ms;
+}
+td:hover {
+  background-color: #ff1493;
+  cursor: pointer;
+}
+/* 작은 화면 크기에서 글꼴과 테이블 크기를 조정합니다. */
+@media only screen and (max-width: 800px) {
+  .service-section {
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0; /* 위쪽 여백 제거 */
+  }
+
+  .title {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo {
+    margin-right: 20px;
+  }
+  .waviy {
+    margin: 0px;
+  }
+  .logo a {
+    font-size: 40px;
+  }
+  .map_wrap {
+    width: 400px;
+    margin-bottom: 10px;
+    height: 250px;
+  }
+  .caution {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+
+  table {
+    width: 50%;
+    height: 50%;
+  }
+  /* 글자 크기 작아지게 설정 */
+  .inner,
+  .subLogo {
+    font-size: 12px;
+  }
+  .click-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-right: 10px;
+    width: 100%;
+  }
+
+  table,
+  th,
+  td {
+    font-size: 12px;
+  }
+  .search_wrap {
+    margin-left: 20px;
+    font-size: 12px;
+  }
+  .search_form {
+    display: flex;
+    flex-direction: column;
+  }
+  #search_button {
+    padding: 20px;
+  }
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 20px 0;
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 15px; /* 상하 15px, 좌우 15px로 설정 */
+  white-space: nowrap; /* 줄바꿈 방지 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+td {
+  background-color: rgba(0, 0, 0, 0);
+  color: #333;
+}
