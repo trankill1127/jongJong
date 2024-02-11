@@ -10,7 +10,7 @@
 
 # 🔨 주요 기능
 
-### 👩🏻‍🔧 서비스 [종종(click!)](https://gregarious-eclair-426674.netlify.app/)
+### 👩🏻‍🔧 서비스 [종종(click!)](https://jongjong.netlify.app/)
 
 - 세종대학교에 있는 건물과 입구들을 선택해서 검색을 누르면 학교 내 도보 이동의 최단 루트를 제공해줍니다.
 
